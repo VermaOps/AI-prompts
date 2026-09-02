@@ -1,0 +1,35 @@
+The previous source-code review was not deep enough. Perform a **second, deeper security review of the entire codebase** and actively look for additional vulnerabilities that may have been missed during the first pass.
+
+### Requirements
+
+* Re-analyze the complete codebase thoroughly.
+* Go beyond simple keyword/pattern searches and trace actual data flows, source-to-sink paths, authentication/authorization logic, business logic, API flows, and security-sensitive operations.
+* Look for both obvious and less-obvious vulnerabilities.
+* Validate each potential finding against the actual code and avoid false positives.
+* Identify the exact affected file, function/method, and code location for every new finding.
+
+### Existing Report — DO NOT MODIFY
+
+There is an existing security report containing findings from Phase 1.
+
+**Do not remove, rewrite, renumber, downgrade, merge, or otherwise modify any existing vulnerability from the report. Preserve all existing findings exactly as they are.**
+
+### Phase 2 Findings
+
+Create a separate section in the same report titled:
+
+**Phase 2 Issues**
+
+Add **only the newly discovered vulnerabilities** from this deeper code review to this section.
+
+Number the new findings separately (for example, `P2-01`, `P2-02`, `P2-03`, etc.) so they are clearly distinguishable from the existing findings.
+
+For each Phase 2 finding, reporting format is same.
+
+Before finalizing, perform one additional verification pass to ensure that:
+
+1. No existing Phase 1 finding was removed or altered.
+2. New findings are genuinely new and are not duplicates of existing findings.
+3. Findings are supported by actual code evidence.
+4. Important vulnerabilities missed during Phase 1 are captured in **Phase 2 Issues**.
+5. No false positives are reported as confirmed vulnerabilities.

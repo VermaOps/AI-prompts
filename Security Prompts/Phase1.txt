@@ -1,0 +1,163 @@
+I need to perform a security assessment of this application's codebase. I will handle the application UI / runtime testing separately; your responsibility is to perform a thorough SOURCE-CODE security review, then produce a professional Word (.docx) report.
+
+I have provided access to the project/codebase folder. First detect what KIND of codebase this is (backend API / service, frontend UI/SPA, mobile, CLI, library, infra, or a mix) and adapt the whole review to it. Analyze the entire codebase before reporting any vulnerabilities.
+
+### 1. Understand the Codebase
+
+- Recursively inspect the entire project directory. Read all relevant source AND configuration files thoroughly. Do not skip files because they look unimportant.
+
+- Identify the architecture, frameworks, languages, entry points, authentication/authorization mechanisms, data storage/DB interactions, external integrations, file handling, and security-sensitive functionality.
+
+- Build the entry-point/sink inventory appropriate to the project type:
+
+- API/backend: controllers/routes → HTTP method + full path + auth decorators/middleware; note unauthenticated and wildcard-permission endpoints.
+
+- UI/frontend: routes, components, templates, and dangerous sinks (innerHTML/bypass-sanitizer, DOM sinks), token/secret storage, config bundles.
+
+- Other (CLI/library/mobile/infra): public functions, IPC/args/env inputs, config, and their sinks.
+
+- Trace how user-controlled (or otherwise untrusted) input flows to sensitive operations/sinks.
+
+- Do NOT report a vulnerability merely because a dangerous function or keyword exists. Trace the actual source → data flow → sink and determine whether it is realistically exploitable. Account for framework protections (e.g. ORM parameterization, framework auto-escaping/sanitization) and whether they are bypassed.
+
+### 2. Perform Security Analysis
+
+Systematically look for vulnerabilities, including but not limited to:
+
+- SQL / ORM injection
+
+- Cross-Site Scripting (reflected, stored, DOM), unsafe HTML/template rendering, missing output encoding, sanitizer bypass, HTML inejction
+
+- SSRF
+
+- Request smuggling
+
+- Command / OS command injection
+
+- Path traversal
+
+- Local/Remote File Inclusion
+
+- IDOR / BOLA / BFLA / privilege escalation / broken access control / missing tenant scoping / mass assignment
+
+- JWT / token security (alg confusion, decode-without-verify, weak/empty secrets), insecure token storage
+
+- Session management vulnerabilities
+
+- CSRF, CORS misconfiguration, clickjacking / missing security headers & CSP
+
+- LDAP injection
+
+- File download vulnerabilities, insecure file upload
+
+- Arbitrary file read/write
+
+- Open redirect
+
+- XXE / insecure deserialization / SSTI
+
+- Sensitive information / credential exposure, secrets shipped in client bundles
+
+- Hardcoded secrets
+
+- Cryptographic weaknesses / insecure randomness
+
+- Business-logic vulnerabilities, Parameter Tampering
+
+- Insecure logging or error handling
+
+- Dependency / known-CVE surface (note any committed scanner output)
+
+Also identify vulnerabilities specific to this application's architecture, framework, language, and business logic. If a category does not apply to this codebase type (e.g. SQLi/SSRF in a pure frontend), explicitly say so and why rather than omitting it silently.
+
+### 3. Evidence-Based Findings
+
+For every reported vulnerability:
+
+- Confirm the complete source-to-sink / data flow where possible.
+
+- Identify the exact affected file, function/method, and line number(s), with a verbatim code snippet.
+
+- Explain why the code is vulnerable, the required preconditions, and the realistic impact.
+
+- Provide a safe proof-of-concept / representative payload appropriate to the project type (see PoC guidance below).
+
+- Distinguish CONFIRMED vulnerabilities from POTENTIAL/suspected issues. If it cannot be conclusively established from code, mark it as requiring runtime validation and state exactly what runtime test would confirm it.
+
+- Do not make assumptions or report false positives as confirmed findings.
+
+### 4. Final Report
+
+Produce a professional vulnerability report. Start with an executive summary and a findings summary table (ID | Category | Affected Endpoint/Route/Component | Severity | Status), then the findings ordered by severity. Use this structure for each finding:
+
+## M-01 — [Vulnerability Title] {C for Critical, H for high, M for medium, L for low, I for informational }
+
+**MEDIUM**
+
+| Finding ID | M-01 |
+
+| ------------------------ | ------------------------------------- |
+
+| Vulnerability | [Name] |
+
+| Severity | Critical / High / Medium / Low / Info {as per the serial no.}|
+
+| Affected Endpoint/Route/Component | [Make sure to mention the exact API endpoint] |
+
+| Function / Method | [Function] |
+
+| Code Location | [File + line number(s)] |
+
+| Vulnerability Type | [Type] |
+
+| Preconditions | [Required conditions] |
+
+| Runtime Test Required? | Yes/No |
+
+Rule for "Affected Endpoint/Route/Component":
+
+- API/backend → the EXACT vulnerable endpoint: HTTP METHOD + full resolved path (controller basePath + route) AND the auth decorators/middleware guarding it.
+
+- UI/frontend → the route/screen + component/template + the exact sink (and the backend endpoint it calls, if any).
+
+- Other → the entry point (command/function/handler) and the sink.
+
+**Vulnerable Code:**
+
+```text
+
+[Relevant verbatim code snippet]
+
+```
+
+**Source-to-Sink / Data Flow:** How attacker-controlled input reaches the sink, including the functions/files involved.
+
+**Steps to Reproduce:** Numbered, precise steps to trigger the issue.
+
+**Payload:** The exact safe payload to inject for PoC.
+
+**Proof of Concept:**
+
+- API/backend → a concrete raw HTTP request (method, path, headers, body/payload).
+
+- UI/frontend → the payload, where it is entered/stored, and the sink it reaches (plus the HTTP request if it round-trips a backend).
+
+- Other → a representative payload/command/exploitation scenario.
+
+**Security Impact:** What an attacker could realistically achieve.
+
+**Remediation:** Specific, technically appropriate fix, preferably showing the secure coding approach.
+
+Also include a "Verified Clean (negative results)" section listing categories you actively checked and found safe, with the reason (e. g. "all raw SQL is parameterized", "framework auto-escapes this binding"), and a short "Methodology & Limitations" appendix.
+
+### 5. Severity and Accuracy
+
+Prioritize findings Critical → High → Medium → Low → Informational. Do not inflate severity.
+
+Before finalizing, perform a second verification pass to:  remove duplicates, eliminate false positives, verify file names and line numbers, verify source-to-sink relationships, ensure no major category was overlooked, and ensure every finding is backed by actual code evidence.
+
+Most importantly: do not guess. If something cannot be verified from the codebase, state what is missing and what runtime testing would confirm it.
+
+### 6. Delivery
+
+Deliver the report as a Word .docx: surface it as a downloadable file in the chat AND save a copy into the connected project folder. Do NOT use Google Drive.
