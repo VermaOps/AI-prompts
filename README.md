@@ -60,9 +60,9 @@ These can help with:
 
 ---
 
-### 💻 Vibe Coding & Extension Development
+### 💻 Vibe Coding for Extension Development
 
-Prompts for using AI as a development assistant when building software, extensions, and security tooling.
+Prompts for using AI as a development assistant when building small extensions, and security tooling.
 
 These prompts can help AI better understand:
 
@@ -73,6 +73,8 @@ These prompts can help AI better understand:
 * 🔄 Iterative development
 * 📐 Technical constraints
 * 🔧 Existing code and functionality
+
+Note - More variations will be added time to time.
 
 ---
 
@@ -108,6 +110,9 @@ Most prompts are designed to be copied directly into your AI workflow.
 
 Depending on the prompt, they can be used with:
 
++--+--+--+
+|Claude|ChatGPT|Gemini|LLMs|
++--+--+--+
 * 🤖 Claude
 * 💬 ChatGPT
 * ✨ Gemini
