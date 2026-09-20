@@ -9,20 +9,18 @@ The goal is to build a practical library of prompts that can help security profe
 ---
 
 ## 📑 Table of Contents
-
-* [📂 What's Inside](#-whats-inside)
-
-  * [🔐 AI Security Review](#-ai-security-review)
-  * [🧪 Security Test Case Generation](#-security-test-case-generation)
-  * [💻 Vibe Coding & Extension Development](#-vibe-coding--extension-development)
-* [🧠 Why This Repository Exists](#-why-this-repository-exists)
-* [🚀 How to Use](#-how-to-use)
-* [🗂️ Repository Structure](#️-repository-structure)
-* [🔮 What's Coming](#-whats-coming)
-* [🧪 Prompt Quality](#-prompt-quality)
-* [🤝 Contributions & Improvements](#-contributions--improvements)
-* [⚠️ Disclaimer](#️-disclaimer)
-* [🌱 An Evolving Collection](#-an-evolving-collection)
+* [What's Inside](#-whats-inside)
+  * [AI Security Review](#-ai-security-review)
+  * [Security Test Case Generation](#-security-test-case-generation)
+  * [Vibe Coding & Extension Development](#-vibe-coding--extension-development)
+* [Why This Repository Exists](#-why-this-repository-exists)
+* [How to Use](#-how-to-use)
+* [Repository Structure](#️-repository-structure)
+* [What's Coming](#-whats-coming)
+* [Prompt Quality](#-prompt-quality)
+* [Contributions & Improvements](#-contributions--improvements)
+* [Disclaimer](#️-disclaimer)
+* [An Evolving Collection](#-an-evolving-collection)
 
 ---
 
