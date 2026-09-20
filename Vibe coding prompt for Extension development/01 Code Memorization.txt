@@ -1,4 +1,4 @@
-> Proving the access to all the project file, your task is to Analyze the entire project repository in depth.
+> Providing the access to all the project file, your task is to Analyze the entire project repository in depth.
 >
 > Recursively go through all files and directories. Read all available source code line by line and fully understand:
 >
