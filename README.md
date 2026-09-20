@@ -200,18 +200,14 @@ Always validate AI-generated findings and recommendations independently before r
 
 ---
 
-## 🌱 An Evolving Collection
+<div align="center">
 
-This repository will continue to grow.
+**Built with ❤️ by [VermaOps](https://github.com/VermaOps)**
 
-New prompts, categories, improvements, experiments, and AI workflows will be added over time.
+[![GitHub Stars](https://img.shields.io/github/stars/VermaOps/AI-prompts?style=social)](https://github.com/VermaOps/AI-prompts/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/VermaOps/AI-prompts)](https://github.com/VermaOps/AI-prompts/issues)
+[![GitHub Forks](https://img.shields.io/github/forks/VermaOps/AI-prompts?style=social)](https://github.com/VermaOps/AI-prompts/network/members)
 
-The goal is simple:
+**⭐ Star this repo if you find it useful for mobile security testing!**
 
-> **Build a practical library of prompts that actually helps people get more out of AI.**
-
----
-
-### 🔗 Maintained by [VermaOps](https://github.com/VermaOps)
-
-⭐ If you find a prompt useful, consider starring the repository and checking back for future additions.
+</div>
