@@ -110,6 +110,7 @@ Most prompts are designed to be copied directly into your AI workflow.
 
 Depending on the prompt, they can be used with:
 
+| | | |
 |:---:|:---:|:---:|
 |Claude|ChatGPT|Gemini|LLMs|
 * 🤖 Claude
