@@ -207,6 +207,6 @@ Always validate AI-generated findings and recommendations independently before r
 [![GitHub Issues](https://img.shields.io/github/issues/VermaOps/AI-prompts)](https://github.com/VermaOps/AI-prompts/issues)
 [![GitHub Forks](https://img.shields.io/github/forks/VermaOps/AI-prompts?style=social)](https://github.com/VermaOps/AI-prompts/network/members)
 
-**⭐ Star this repo if you find it useful for mobile security testing!**
+**⭐ Star this repo if you find it useful in your AI security review!**
 
 </div>
