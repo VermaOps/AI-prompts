@@ -20,7 +20,6 @@ The goal is to build a practical library of prompts that can help security profe
 * [Prompt Quality](#-prompt-quality)
 * [Contributions & Improvements](#-contributions--improvements)
 * [Disclaimer](#️-disclaimer)
-* [An Evolving Collection](#-an-evolving-collection)
 
 ---
 
@@ -60,7 +59,7 @@ These can help with:
 
 ---
 
-### 💻 Vibe Coding for Extension Development
+### 💻 Vibe Coding & Extension Development
 
 Prompts for using AI as a development assistant when building small extensions, and security tooling.
 
