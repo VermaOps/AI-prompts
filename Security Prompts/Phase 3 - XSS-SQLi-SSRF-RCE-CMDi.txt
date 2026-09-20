@@ -1,0 +1,403 @@
+Perform a **deep and thorough security analysis of the entire codebase**.
+
+This is **Phase 3** of the security assessment and will be maintained as a **separate security report**.
+
+For this phase, focus **ONLY** on the following five vulnerability classes:
+
+1. **XSS — Cross-Site Scripting**
+2. **SQL Injection — SQLi**
+3. **SSRF — Server-Side Request Forgery**
+4. **RCE — Remote Code Execution**
+5. **CMDi — OS Command Injection**
+
+Do not report other vulnerability types.
+
+---
+
+### Complete Codebase Review
+
+Review the **entire available codebase** thoroughly.
+
+Do not rely only on keyword or pattern searches.
+
+Review all relevant:
+
+* Files
+* Functions/methods
+* Routes
+* Controllers
+* APIs
+* Services
+* Database interactions
+* Middleware
+* Utility/helper functions
+* HTTP clients
+* Template/rendering logic
+* Background jobs/workers
+* Webhooks
+* External integrations
+* Command/process execution
+* Other security-sensitive code paths
+
+For each potential vulnerability, trace the actual:
+
+**Source → Input Handling → Validation/Sanitization → Processing → Security Controls → Sink**
+
+Look for both direct and indirect data flows, including multi-step and second-order flows where applicable.
+
+Do not assume that the presence of a dangerous function automatically means a vulnerability exists.
+
+---
+
+## XSS Analysis
+
+Look specifically for:
+
+* Reflected XSS
+* Stored XSS
+* DOM-based XSS
+* Unsafe HTML rendering
+* Unsafe template rendering
+* Missing or incorrect output encoding
+* User-controlled data reaching HTML/JavaScript/DOM sinks
+* Unsafe URL handling where it can result in script execution
+
+Pay particular attention to dangerous sinks such as:
+
+* `innerHTML`
+* `outerHTML`
+* `insertAdjacentHTML`
+* `document.write`
+* Dynamic JavaScript construction
+* Framework-specific unsafe HTML rendering
+* Template mechanisms that bypass normal escaping
+
+Trace user-controlled data from the original source all the way to the rendering/execution sink.
+
+Determine whether the application's existing encoding, sanitization, or framework protections actually prevent exploitation.
+
+Do not report XSS merely because user input is displayed.
+
+---
+
+## SQL Injection Analysis
+
+Review all paths where externally controlled input can reach database queries.
+
+Check:
+
+* GET parameters
+* POST parameters
+* JSON/API parameters
+* URL/path parameters
+* HTTP headers
+* Cookies
+* Search/filter parameters
+* Sorting/order parameters
+* Pagination parameters
+* Authentication/query paths
+* Dynamic SQL
+* Raw SQL queries
+* Query builders
+* Database helper functions
+
+Look specifically for:
+
+* String concatenation
+* String interpolation
+* Dynamic query construction
+* Missing parameterization
+* Incorrect parameter binding
+* Ineffective escaping
+* Dynamic table/column/order construction
+* Unsafe database helper functions
+* Second-order SQL injection
+
+Do not report raw SQL by itself as SQL injection.
+
+Establish whether attacker-controlled input can actually influence the SQL structure or query execution.
+
+---
+
+## SSRF Analysis
+
+Identify functionality where the server makes outbound requests using attacker-controlled or attacker-influenced data.
+
+Review:
+
+* User-controlled URLs
+* URL parameters
+* Webhooks
+* Callback URLs
+* URL fetchers
+* Proxy functionality
+* Image/document fetching
+* Import functionality
+* External API integrations
+* Server-side HTTP clients
+* Redirect handling
+
+Determine whether attackers can influence:
+
+* Hostname
+* IP address
+* Port
+* Protocol
+* Path
+* Redirect destination
+
+Analyze protections such as:
+
+* Domain allowlists
+* IP allowlists/denylists
+* Private IP blocking
+* Loopback blocking
+* Link-local blocking
+* IPv4/IPv6 validation
+* DNS resolution checks
+* Redirect validation
+* URL canonicalization
+* DNS rebinding protections
+
+Where applicable, assess potential access to:
+
+* `localhost`
+* Loopback addresses
+* Private/internal IP ranges
+* Link-local addresses
+* Internal services
+* Cloud metadata endpoints
+
+Do not report SSRF merely because the application makes an HTTP request.
+
+Establish that attacker-controlled input can influence the server-side destination and that the resulting request can reach a restricted or security-sensitive target.
+
+---
+
+## RCE Analysis
+
+Look for code paths where attacker-controlled input could result in **arbitrary code execution**.
+
+Review:
+
+* Dynamic code evaluation
+* Unsafe `eval`-style functionality
+* Runtime compilation
+* Unsafe deserialization leading to code execution
+* Dynamic module/plugin loading
+* Template/expression execution
+* Interpreter invocation
+* Server-side execution of attacker-controlled content
+* Other mechanisms capable of executing attacker-controlled code
+
+Clearly distinguish:
+
+* Confirmed arbitrary code execution
+* Potential execution requiring additional conditions
+* Dangerous functionality that is not actually attacker-controlled
+
+Do not classify ordinary fixed command execution as RCE unless attacker-controlled input can influence execution in a way that results in arbitrary code execution.
+
+---
+
+## CMDi Analysis
+
+Look specifically for attacker-controlled input reaching operating-system command execution.
+
+Review:
+
+* `exec`
+* `execSync`
+* `spawn`
+* `spawnSync`
+* `system`
+* `popen`
+* `shell_exec`
+* `Runtime.exec`
+* Process execution APIs
+* Shell invocation
+* Custom command execution wrappers
+* Scripts invoked by application code
+
+Check for:
+
+* Command concatenation
+* String interpolation
+* Shell metacharacter injection
+* Unsafe command construction
+* Unsafe arguments
+* Missing allowlisting
+* User input reaching shell execution
+* Incorrect separation of command arguments
+
+Where applicable, determine whether the application invokes:
+
+* `sh`
+* `bash`
+* `cmd.exe`
+* PowerShell
+* Other system shells/interpreters
+
+Distinguish command injection from cases where user input is safely passed as a fixed argument without shell interpretation.
+
+Do not report command execution by itself as CMDi.
+
+---
+
+## Source-to-Sink and Security-Control Validation
+
+For every potential finding, trace:
+
+**Attacker-controlled source → validation → sanitization/encoding → transformations → business logic → security control → vulnerable sink**
+
+Check whether existing controls actually prevent exploitation.
+
+Consider:
+
+* Input validation
+* Output encoding
+* Sanitization
+* Parameterized queries
+* Prepared statements
+* Allowlisting
+* URL validation
+* IP validation
+* Safe process execution
+* Argument separation
+* Framework protections
+* Context-specific escaping
+
+Do not assume that a security control is effective merely because it exists.
+
+Verify its actual effect on the specific vulnerable data flow.
+
+---
+
+## Confirmed vs Potential Findings
+
+Clearly distinguish between:
+
+### Confirmed Finding
+
+The code provides sufficient evidence that attacker-controlled input can reach the relevant security-sensitive sink in an exploitable manner.
+
+### Potential Finding
+
+The code indicates a possible vulnerability, but exploitability depends on runtime behavior or information that cannot be established through the available source code.
+
+Do not present potential findings as confirmed vulnerabilities.
+
+Do not fabricate evidence, runtime behavior, line numbers, or exploitability.
+
+---
+
+## Finding Evidence
+
+For every confirmed finding, provide sufficient technical evidence to support the finding, including where applicable:
+
+* Finding ID
+* Vulnerability name
+* Vulnerability type
+* Severity
+* Affected file
+* Function/method
+* Steps to replicate
+* Exact code location/line number
+* Source
+* Sink
+* Source-to-sink data flow
+* Relevant code evidence
+* Existing security controls
+* Why the control is insufficient, if applicable
+* Exploitability
+* Preconditions
+* Proof of concept/payload
+* Expected attack behavior
+* Impact
+* Recommended remediation
+
+Use exact file paths and line numbers wherever available.
+
+Never fabricate line numbers or code evidence.
+
+---
+
+## Duplicate and False-Positive Prevention
+
+Before including a finding:
+
+* Verify the actual source-to-sink path.
+* Verify that the input is attacker-controlled or attacker-influenced.
+* Verify the relevant security-sensitive sink.
+* Verify whether existing controls prevent exploitation.
+* Check whether the same underlying issue has already been identified elsewhere in this Phase 3 analysis.
+* Remove duplicate findings.
+* Do not report dangerous functions alone as vulnerabilities.
+* Do not report theoretical issues without sufficient code evidence.
+
+**Accuracy is more important than the number of findings.**
+
+---
+
+## Separate Phase 3 Report
+
+This Phase 3 assessment must be delivered as a **separate report**.
+
+Do not modify, append to, or depend on the Phase 1 or Phase 2 report.
+
+The Phase 3 report should contain **only findings related to:**
+
+* XSS
+* SQLi
+* SSRF
+* RCE
+* CMDi
+
+---
+
+## Report Format — Same as Phase 1
+
+Use the **same report structure, formatting, finding format, severity terminology, evidence style, tables, headings, and overall presentation used in the Phase 1 security report**.
+
+Do not create a new or different reporting style for Phase 3.
+
+The report should look like it belongs to the same security assessment/reporting methodology as Phase 1.
+
+If the Phase 1 format contains specific finding IDs, tables, sections, or evidence fields, follow the same structure.
+
+For Phase 3, use a clear Phase 3-specific finding ID convention such as:
+
+`P3-C01`, `P3-C02`, `P3-H01`, etc. Where 'C' denotes Critical, 'H' for High and then similarly 'M' - Medium, 'L' - Low, 'I' - Informational.
+
+Group findings by vulnerability type where appropriate, while preserving the established Phase 1 reporting structure.
+
+Order findings by severity within each vulnerability category where this is consistent with the Phase 1 format.
+
+---
+
+## Final Verification
+
+Before finalizing the Phase 3 report, perform a separate verification pass.
+
+Verify that:
+
+1. The **entire codebase** was reviewed.
+2. Only **XSS, SQLi, SSRF, RCE, and CMDi** findings are included.
+3. Every finding has actual code evidence.
+4. Source-to-sink data flows have been traced.
+5. Existing security controls have been evaluated.
+6. Confirmed and potential findings are clearly distinguished.
+7. Duplicate findings have been removed.
+8. False positives have been removed or clearly marked as requiring validation.
+9. File paths, functions, and line numbers are accurate.
+10. Severity is appropriate to the demonstrated impact.
+11. No unrelated vulnerability types have been included.
+12. The report follows the **same format and presentation as the Phase 1 report**.
+
+If no valid vulnerability is identified for one of the five categories, state:
+
+**No confirmed findings identified for this category.**
+
+Do not manufacture findings simply to populate a category.
+
+The final deliverable should be a **standalone Phase 3 security report** containing only **XSS, SQL Injection, SSRF, RCE, and CMD Injection** findings, using the established **Phase 1 reporting format**.

@@ -1,0 +1,81 @@
+[Upload your template test case file]
+
+# Project information
+
+[Paste modules, features, workflows, buttons, roles, APIs and business rules here.]
+
+------------------------------------------------------------------------
+
+I am providing you with a high-level list of application features/modules. Based on these features, your task is to recreate and update the security testing sheet that I shared earlier.
+
+### Objectives
+
+For each feature/module that I provide:
+
+* Create a comprehensive set of security test cases that should be performed.
+* Organize the test cases under the appropriate module/feature in the same structure as the original sheet.
+* Ensure the sheet is complete, well-structured, and suitable for use as a professional security testing checklist.
+
+### Existing Test Cases
+
+The original sheet already contains some pre-filled test cases.
+
+* Review every existing test case carefully before making any changes.
+* Retain any existing test case that is still valid, relevant, and useful.
+* Remove only duplicate, obsolete, or incorrect test cases.
+* Expand the existing content with additional security test cases wherever necessary.
+* Do **not** overwrite or remove useful information without justification.
+
+### Generate Comprehensive Security Test Cases
+
+For every feature/module, generate exhaustive security test cases covering all applicable attack surfaces, including (where relevant):
+
+* Authentication (JWT)
+* Authorization / Access Control
+* Input Validation
+* Business Logic / Parameter tampering
+* File Download / upload
+* Parameter Tampering
+* Injection Attacks (XSS, SSRF, XXE, SQLI, CMDI) (all injection in one)
+* Rate Limiting
+* Error Handling
+* Sensitive Data Exposure
+* Mass assignment
+* LFI / RFI / Directory Traversal
+* Security Misconfiguration
+* Any feature-specific security scenarios
+
+Only include categories that are applicable to the specific module.
+
+### Gap Analysis
+
+Do not rely solely on the features I provide.
+
+Review my list critically and identify:
+
+* Missing security scenarios
+* Missing test cases
+* Missing privilege-based test cases
+* Missing role-based access control tests
+* Missing business logic tests
+* Any additional security validations that should be included based on industry best practices
+
+If you identify anything that should be tested but I have not mentioned, add it to the sheet and clearly indicate that it was added based on your analysis.
+
+### Quality Requirements
+
+The final sheet should:
+
+* Be comprehensive and practical.
+* Avoid duplicate or redundant test cases.
+* Preserve useful existing content from the original sheet.
+* Include all relevant security test cases for every module.
+* Follow industry best practices, including the OWASP Testing Guide, OWASP ASVS, and OWASP Top 10 (where applicable).
+* Be suitable for use during real-world penetration testing and security assessments.
+
+Before finalizing the sheet, perform a completeness review to ensure:
+
+* Every feature/module has been covered.
+* No existing valid test case has been accidentally removed.
+* No important security scenario has been missed.
+* The final sheet is consistent, organized, and ready to be shared with the testing team.

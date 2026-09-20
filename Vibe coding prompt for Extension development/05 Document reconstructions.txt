@@ -1,0 +1,16 @@
+I have lost the original project documentation, which included architectural details, diagrams, process flows, feature requirements, and implementation guidance used to develop the project from scratch. The project was built using an **iterative development approach**.
+
+Based solely on the existing project files and source code:
+
+* Determine whether it is possible to reconstruct this information accurately
+* If it is possible, proceed with creating **complete and official project documentation**
+
+The documentation should reconstruct:
+
+* Overall system architecture
+* Architectural diagrams (conceptual, if exact originals are unavailable)
+* Process flows and core functionality
+* Feature requirements and behaviors
+* Implementation and development guidance
+
+Use only what can be reliably inferred from the codebase and configuration files.

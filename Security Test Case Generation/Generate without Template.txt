@@ -1,0 +1,137 @@
+# Security Test Case Workbook — Generator Prompt
+
+I run security testing for applications my team is authorised to assess. Build me
+an Excel (.xlsx) checklist my testers fill in during an engagement. Each row says
+what to verify and what correct, secure behaviour looks like. Use Python +
+openpyxl and give me the file as a download.
+
+## Sheets (exactly three, in this order)
+
+1. `Prerequisite` — cell A1 = `Leave this sheet empty`. Column widths 84.6,
+32.1, 38.9. Nothing else.
+
+2. `Web & Infrastructure` — columns
+`#  Target URL  Test Category  Test Case(s)  Test Result  Status  Origin`
+Widths 4.4, 17.5, 26.2, 91.9, 35, 12.2. Merge B2 down to the last row (leave
+empty). 30–40 rows covering ports, TLS, security headers, CORS, cookies,
+clickjacking, subdomain enumeration and takeover, DNSSPFDKIMDMARC, WAF,
+caching, request smuggling, cloud storage exposure, open redirect, client-side
+bundle review, HTTP methods, patch level.
+
+3. `API Security Test Cases` — columns
+`#  Main Module  Feature  API Endpoint(s)  Origin  Test Category  Test Case(s)  Test Result  Status  Vulnerable endpoint`
+Widths 4.5, 17.2, 23.8, 17.4, 10.5, 21.4, 38.9, 33.1, 12.6, 50.
+
+## Formatting (both test sheets)
+
+- Header row Arial 11 bold, white on fill `1F3864`, centred, wrapped, thin
+  borders, row height 27.75.
+- Body Arial 10, lefttop aligned, wrapped, thin borders. Leave row heights on
+  default.
+- `Main Module` and `Feature` bold, and vertically merged across their block so
+  the label appears once. Every block must have a label.
+- `API Endpoint(s)` merged per feature, left empty — testers fill it from
+  intercepted traffic. Never invent paths.
+- `Origin` Arial 9, grey `595959`. Value is either `Feature List` (derived from
+  functionality I described) or `Gap Analysis` (you added it).
+- `Status` Arial 10 bold, fill `E2EFDA`, value `To-Do` on every row.
+- `Vulnerable endpoint` red font `FF0000`, wrap off, left empty.
+- `Test Result` empty.
+- Freeze panes A2. AutoFilter across the full range. Dropdown on the Status
+  column `To-Do,In Progress,Pass,Fail,NA,Re-Test`.
+- `#` restarts at 1 for each Main Module, sequential within it.
+
+Nothing else no legend or summary sheet, no extra columns, no formulas, no
+conditional formatting, no placeholder rows.
+
+## Modules
+
+Main Modules lettered A, B, C… named after the app's functional areas. Features
+inside them labelled `A1. name`, `A2. name`, with `A5.1`, `A5.2` for
+sub-screens. The last module is always
+`letter. Platform-Wide  Cross-Cutting (Gap Analysis)`, numbered C1, C2, C3…
+
+## Test categories (use only these names)
+
+`Authentication  JWT` · `Authorization  Access Control` · `Business Logic 
+Parameter Tampering` · `Mass Assignment` · `Input Validation` · `Injections` ·
+`File Upload` · `File Download` · `LFI  RFI  Directory Traversal` · `Rate
+Limiting` · `Sensitive Data Exposure` · `Error Handling` · `Security
+Misconfiguration` · `Audit Logging` · `Feature-Specific`
+
+Business logic and parameter tampering are one fused category — it'll be the
+largest. `Injections` is one umbrella for SQLi, NoSQLi, XSS, SSRF, XXE, command
+injection, SSTI and CSVformula injection.
+
+Within a feature, emit rows in the order listed above, skipping categories that
+don't apply. A feature with no file handling gets no File Upload row. Roughly
+8–23 rows per feature, usually 10–15.
+
+## How to write each test case
+
+One paragraph, 25–60 words, naming the role or actor, the action, the specific
+parameters and values to try, and the expected secure response including status
+codes where they matter. Add the tool where it helps (Burp, Collaborator,
+Postman, testssl.sh) and a short clause on business impact for the serious ones.
+Use standard published test strings only — `' OR 1=1`, `....etcpasswd`,
+`{{77}}`, an `=`-prefixed cell, EICAR. No exploit scripts.
+
+Fuse related probes into one row rather than splitting them. Test for SQL
+injection is unusable; Inject SQLi, NoSQLi and ORDER BY payloads into the list
+filter, sort and search parameters that build the bulk-update selection,
+including time-based blind payloads is usable. The expected result lives inside
+the sentence — there is no separate column for it. Spelling authorisation,
+sanitisation, neutralised.
+
+## The one rule that prevents duplication
+
+If a sentence would still make sense in another feature after changing only the
+feature name, it belongs in the cross-cutting module — not repeated per feature.
+
+Cross-cutting module (write once) the full role-vs-endpoint replay matrix,
+token and session handling, loginpassword resetMFAlockout, CSRF, user and role
+administration, tenant isolation, the file uploaddownload baseline, the email
+and notification subsystem, searchfilterexport including formula injection, API
+inventory and misconfiguration, global rate limiting, error-handling consistency,
+audit logging and data protection.
+
+Per feature (write every time) object-level authorisation on that feature's
+IDs, which roles may perform that feature's actions, that feature's own business
+rules and state machine, mass assignment of its server-managed fields, input
+validation of its fields, injections into its parameters and wherever its data is
+rendered, rate limiting where it sends email or runs something expensive,
+sensitive data in its responses, audit logging of its significant changes.
+
+## Deriving the tests
+
+From what I give you every role restriction becomes a positive and a negative
+test enforced at the API, not the UI. Every numeric limit becomes an enforcement
+test, a batch-bypass test and a concurrency race. Every status becomes a
+state-machine test including direct status-field tampering. Every bulk or
+filtered action becomes a filter-widening test plus per-item authorisation. Every
+identifier becomes an IDOR test. Every payload becomes a mass-assignment test.
+Every email trigger becomes recipient tampering, header injection and throttling.
+Every guest or external surface becomes credential scope, expiry enforced on
+every sub-resource, and isolation from other parties. Every renamed field becomes
+a legacy-alias test. Every scheduled job becomes direct invocation and
+idempotency. Every approval or award becomes segregation of duties and immutable
+audit. Every time-bound window becomes a boundary test at both ends.
+
+Add what I didn't mention as `Gap Analysis` and tell me in chat what you added.
+
+## Before sending
+
+Check every feature has a labelled block; no near-duplicate rows; no
+cross-cutting check repeated inside features; every feature-level row names
+something specific to that feature; numbering restarts per module; Origin is set
+on every row; formatting and dropdowns match the spec.
+
+Then send the file plus a short summary — row counts, module breakdown, Feature
+List vs Gap Analysis split, the significant gaps you added, and any assumptions.
+
+If something essential is missing (roles, multi-tenancy, how guest access works),
+ask up to four questions once, then proceed.
+
+## Project information
+
+[Paste modules, features, workflows, buttons, roles, APIs and business rules here.]

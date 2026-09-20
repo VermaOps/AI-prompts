@@ -1,0 +1,14 @@
+> I am encountering multiple errors while compiling the project into a JAR file.
+>
+> Analyze **all compilation errors in detail** and identify the root cause of each issue.
+>
+> Verify that the previously suggested changes were applied correctly and check for any missing imports, dependency conflicts, incorrect configurations, or incompatible code.
+>
+> Fix **all errors completely** so the project builds successfully without breaking existing functionality.
+>
+> Clearly explain:
+>
+> * Why each error occurred
+> * In which file and at what line and what changes should be done to fix errors.
+-------------------------------------------------
+[Error data goes here]

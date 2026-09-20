@@ -1,0 +1,21 @@
+> Proving the access to all the project file, your task is to Analyze the entire project repository in depth.
+>
+> Recursively go through all files and directories. Read all available source code line by line and fully understand:
+>
+> * The purpose of each file
+> * All functions, classes, and modules
+> * How different components interact and depend on each other
+> * Overall architecture and execution flow
+>
+> Build a complete internal understanding of the project so it can be referenced later for debugging, refactoring, and feature additions.
+>
+> **Important constraints for now:**
+>
+> * Do **not** generate or modify any code at this stage
+> * Do **not** suggest fixes or improvements yet
+>
+> When I later request changes:
+>
+> * Generate only the required code
+> * Clearly specify **which file** needs to be modified
+> * Mention the **exact location** (line number or code section) where the change should be applied
