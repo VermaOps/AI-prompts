@@ -16,7 +16,7 @@ The goal is to build a practical library of prompts that can help security profe
 * [Why This Repository Exists](#-why-this-repository-exists)
 * [How to Use](#-how-to-use)
 * [Repository Structure](#️-repository-structure)
-* [What's Coming](#-whats-coming)
+* [Scope](#-scope)
 * [Prompt Quality](#-prompt-quality)
 * [Contributions & Improvements](#-contributions--improvements)
 * [Disclaimer](#️-disclaimer)
@@ -110,9 +110,6 @@ Most prompts are designed to be copied directly into your AI workflow.
 
 Depending on the prompt, they can be used with:
 
-| | | |
-|:---:|:---:|:---:|
-|Claude|ChatGPT|Gemini|LLMs|
 * 🤖 Claude
 * 💬 ChatGPT
 * ✨ Gemini
@@ -146,10 +143,7 @@ This structure will evolve as new prompt categories are added.
 
 ---
 
-## 🔮 What's Coming
-
-This repository is intentionally **not limited to the categories currently available**.
-
+## 🔮 Scope
 As the collection grows, future prompts may cover areas such as:
 
 * 🌐 API Security
@@ -176,11 +170,6 @@ New categories will be added as useful prompts are developed and tested.
 ---
 
 ## 🧪 Prompt Quality
-
-The goal isn't to fill the repository with hundreds of generic prompts.
-
-Prompts may be:
-
 * 🧪 Tested against real-world use cases
 * 🔧 Refined through experimentation
 * 🔄 Updated when better approaches are discovered
